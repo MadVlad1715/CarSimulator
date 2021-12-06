@@ -12,7 +12,7 @@ namespace CarSimulator.ViewModels
 {
     internal class MainWindowViewModel : ViewModel
     {
-        public Car Car { get; } = new();
+        private Car car { get; } = new();
 
         #region Window
 
@@ -62,18 +62,18 @@ namespace CarSimulator.ViewModels
 
         public float CarBrake
         {
-            get => Car.Brake;
-            set => Car.Brake = value;
+            get => car.Brake;
+            set => car.Brake = value;
         }
 
         public float CarSpeed
         {
-            get => Car.Speed;
+            get => car.Speed;
         }
 
         public float CarFuelLevel
         {
-            get => Car.FuelLevel;
+            get => car.FuelLevel;
         }
 
         #endregion
@@ -82,38 +82,38 @@ namespace CarSimulator.ViewModels
 
         public bool EngineIsRunning
         {
-            get => Car.Engine.IsRunning;
+            get => car.Engine.IsRunning;
         }
 
         public float EngineRpm
         {
-            get => Car.Engine.Rpm;
+            get => car.Engine.Rpm;
         }
 
         public float EngineGas
         {
-            get => Car.Engine.Gas;
-            set => Car.Engine.Gas = value;
+            get => car.Engine.Gas;
+            set => car.Engine.Gas = value;
         }
 
         public float EngineCoolantLevel
         {
-            get => Car.Engine.CoolantLevel;
+            get => car.Engine.CoolantLevel;
         }
 
         public float EngineCoolantTemp
         {
-            get => Car.Engine.CoolantTemp;
+            get => car.Engine.CoolantTemp;
         }
 
         public float EngineOilLevel
         {
-            get => Car.Engine.OilLevel;
+            get => car.Engine.OilLevel;
         }
 
         public float EngineOilTemp
         {
-            get => Car.Engine.OilTemp;
+            get => car.Engine.OilTemp;
         }
 
         #endregion
@@ -122,23 +122,23 @@ namespace CarSimulator.ViewModels
 
         public byte TransmissionMode
         {
-            get => Car.Transmission.Mode;
-            set => Car.Transmission.Mode = value;
+            get => car.Transmission.Mode;
+            set => car.Transmission.Mode = value;
         }
 
         public sbyte TransmissionGear
         {
-            get => Car.Transmission.Gear;
+            get => car.Transmission.Gear;
         }
 
         public float TransmissionOilLevel
         {
-            get => Car.Transmission.OilLevel;
+            get => car.Transmission.OilLevel;
         }
 
         public float TransmissionOilTemp
         {
-            get => Car.Transmission.OilTemp;
+            get => car.Transmission.OilTemp;
         }
 
         #endregion
@@ -146,16 +146,16 @@ namespace CarSimulator.ViewModels
         #region Commands
 
         public ICommand StartStopEngineCommand { get; }
-        private void StartStopEngineCommandExecute(object p) => Car.StartStopEngine();
+        private void startStopEngineCommandExecute(object p) => car.StartStopEngine();
 
         public ICommand UpdateGaugeSizeCommand { get; }
-        private void UpdateGaugeSizeCommandExecute(object p)
+        private void updateGaugeSizeCommandExecute(object p)
         {
             SizeChangedEventArgs e = (SizeChangedEventArgs)p;
             updateGaugeSize(e.NewSize.Width, e.NewSize.Height);
         }
         public ICommand ChangeGearModeByLabelClickCommand { get; }
-        private void ChangeGearModeByLabelClickCommandExecute(object p)
+        private void changeGearModeByLabelClickCommandExecute(object p)
         {
             MouseEventArgs e = (MouseEventArgs)p;
             TextBlock source = e.Source as TextBlock;
@@ -167,13 +167,13 @@ namespace CarSimulator.ViewModels
 
         public MainWindowViewModel()
         {
-            StartStopEngineCommand = new RelayCommand(StartStopEngineCommandExecute);
-            UpdateGaugeSizeCommand = new RelayCommand(UpdateGaugeSizeCommandExecute);
-            ChangeGearModeByLabelClickCommand = new RelayCommand(ChangeGearModeByLabelClickCommandExecute);
+            StartStopEngineCommand = new RelayCommand(startStopEngineCommandExecute);
+            UpdateGaugeSizeCommand = new RelayCommand(updateGaugeSizeCommandExecute);
+            ChangeGearModeByLabelClickCommand = new RelayCommand(changeGearModeByLabelClickCommandExecute);
 
-            Car.PropertyChanged += (object sender, PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Car) + e.PropertyName);
-            Car.Engine.PropertyChanged += (object sender, PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Engine) + e.PropertyName);
-            Car.Transmission.PropertyChanged += (object sender, PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Transmission) + e.PropertyName);
+            car.PropertyChanged += (object sender, PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Car) + e.PropertyName);
+            car.Engine.PropertyChanged += (object sender, PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Engine) + e.PropertyName);
+            car.Transmission.PropertyChanged += (object sender, PropertyChangedEventArgs e) => OnPropertyChanged(nameof(Transmission) + e.PropertyName);
 
             updateGaugeSize(WindowWidth, WindowHeight);
         }

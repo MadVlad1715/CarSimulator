@@ -1,6 +1,6 @@
 ﻿namespace CarSimulator.Models.Base
 {
-    class Model
+    internal abstract class Model
     {
     }
 }

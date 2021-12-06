@@ -2,7 +2,8 @@
 
 namespace CarSimulator.Models.Base
 {
-    class BindableModel : Bindable
+    internal abstract class BindableModel : Bindable
     {
+
     }
 }
